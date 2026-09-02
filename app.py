@@ -57,14 +57,16 @@ with tab_saas:
     st.markdown("Optimizes transaction clock timings, pay-day match variables, and smart gateway triggers.")
     
     # Cleaned and varied predictive scores
-    saas_data = pd.DataFrame({
-        "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
-        "Invoice Amount": ["$240.00", "$85.00", "$1,200.00", "$450.00"],
-        "Gateway Error Code": ["Insufficient Funds", "Card Expired", "Bank Decline", "Insufficient Funds"],
-       # Replace line 64 with actual data values:
-"AI Score (%)": [88, 92, 79, 95, 84],
-        "Scheduled Action": ["Retry scheduled Friday 9:02 AM (Payday)", "Send Card Expiry Update Link", "Route to Manual Account Exec Review", "Retry scheduled tomorrow 6:00 AM"]
-    })
+   saas_data = pd.DataFrame({
+    "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
+    "AI Score (%)": [88, 92, 79, 95],
+    "Scheduled Action": [
+        "Retry scheduled Friday 9:02 AM (Payday)",
+        "Send Card Expiry Update Link",
+        "Route to Manual Account Exec Review",
+        "Retry scheduled tomorrow 6:00 AM"
+    ]
+})
     
     st.dataframe(saas_data, use_container_width=True)
     
