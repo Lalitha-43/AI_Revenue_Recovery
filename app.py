@@ -57,7 +57,7 @@ with tab_saas:
     st.markdown("Optimizes transaction clock timings, pay-day match variables, and smart gateway triggers.")
     
     # Cleaned and varied predictive scores
-   saas_data = pd.DataFrame({
+saas_data = pd.DataFrame({
     "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
     "AI Score (%)": [88, 92, 79, 95],
     "Scheduled Action": [
@@ -67,7 +67,6 @@ with tab_saas:
         "Retry scheduled tomorrow 6:00 AM"
     ]
 })
-    
     st.dataframe(saas_data, use_container_width=True)
     
     if st.button("🚀 Trigger Instant Bulk Retry Pass", key="btn_saas"):
