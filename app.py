@@ -153,7 +153,7 @@ with tab_logistics:
     with col_chart:
         # Simple sample chart tracking daily performance
         chart_data = pd.DataFrame(
-            np.random.randn(20, 2) * [100, 50] +,
+            np.random.randn(20, 2) * [100, 50] ,
             columns=['Disputed Volume ($)', 'Recovered Capital ($)']
         )
         st.line_chart(chart_data)
