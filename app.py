@@ -16,8 +16,10 @@ st.sidebar.title("⚙️ Global Control Engine")
 st.sidebar.markdown("Configure autonomous parameters across your deployment structures.")
 
 st.sidebar.subheader("Safety Guardrails")
-confidence_threshold = st.sidebar.slider("AI Confidence Threshold (%)", 50, 95, 75, 
-                                         help="Minimum confidence score required for the AI to execute an autonomous action without human approval.")
+confidence_threshold = st.sidebar.slider(
+    "AI Confidence Threshold (%)", 50, 95, 75, 
+    help="Minimum confidence score required for the AI to execute an action autonomously."
+)
 max_auto_value = st.sidebar.number_input("Max Autonomous Action Value ($)", 500, 10000, 2500)
 
 st.sidebar.subheader("System Mode")
@@ -56,17 +58,20 @@ with tab_saas:
     st.subheader("SaaS Recurring Billing & Intelligent Retry Matrix")
     st.markdown("Optimizes transaction clock timings, pay-day match variables, and smart gateway triggers.")
     
-    # Cleaned and varied predictive scores
-saas_data = pd.DataFrame({
-    "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
-    "AI Score (%)": [88, 92, 79, 95],
-    "Scheduled Action": [
-        "Retry scheduled Friday 9:02 AM (Payday)",
-        "Send Card Expiry Update Link",
-        "Route to Manual Account Exec Review",
-        "Retry scheduled tomorrow 6:00 AM"
-    ]
-})
+    # Fully closed data object with varying score values
+    saas_data = pd.DataFrame({
+        "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
+        "Invoice Amount": ["$240.00", "$85.00", "$1,200.00", "$450.00"],
+        "Gateway Error Code": ["Insufficient Funds", "Card Expired", "Bank Decline", "Insufficient Funds"],
+        "AI Score (%)": [92, 78, 55, 84],
+        "Scheduled Action": [
+            "Retry scheduled Friday 9:02 AM (Payday)", 
+            "Send Card Expiry Update Link", 
+            "Route to Manual Account Exec Review", 
+            "Retry scheduled tomorrow 6:00 AM"
+        ]
+    })
+    
     st.dataframe(saas_data, use_container_width=True)
     
     if st.button("🚀 Trigger Instant Bulk Retry Pass", key="btn_saas"):
@@ -85,9 +90,9 @@ with tab_cart:
     
     with col_chats:
         st.write("**Active Recovery Live Chat Queue**")
-        st.button("👤 John D. ($240.00) - Failed Coupon Trigger", use_container_width=True)
-        st.button("👤 Sarah M. ($85.00) - Checkout Interrupted", use_container_width=True)
-        st.button("👤 Alex P. ($520.00) - Card Failure Churn", use_container_width=True)
+        st.button("👤 John D. ($240.00) - Failed Coupon", use_container_width=True, key="btn_johnd")
+        st.button("👤 Sarah M. ($85.00) - Interrupted", use_container_width=True, key="btn_sarahm")
+        st.button("👤 Alex P. ($520.00) - Card Failure", use_container_width=True, key="btn_alexp")
         
     with col_live:
         st.write("**Selected Live Thread: John D.**")
@@ -95,7 +100,7 @@ with tab_cart:
         st.warning("**Customer:** 'Yeah, the WELCOME10 code didn't work for my cart item.'")
         st.info("**AI Agent:** 'Fixed that! Here is a direct link with the 10% automatically applied: [Link] (Expires in 15 mins).'")
         
-        st.text_input("Intervene and type an overwrite message to user:", placeholder="Type a message to interrupt the autonomous agent model...")
+        st.text_input("Intervene and type an overwrite message to user:", placeholder="Type a message to interrupt the agent...", key="txt_intervene")
 
 # ----------------------------------------------------
 # TAB 3: ENTERPRISE AUDIT DESK
@@ -107,20 +112,28 @@ with tab_enterprise:
     ent_data = pd.DataFrame({
         "Enterprise Client": ["Acme Corp", "Globex Inc", "Stark Industries"],
         "Disputed Invoice Balance": ["$12,500.00", "$45,000.00", "$8,200.00"],
-        "Found Contract Clause Reference": ["Section 4.2 (Net-30 Late Fee Calculation Overlap)", "Section 9.1 (Custom Volume Discount Tier Discrepancy)", "Section 2.3 (Server Maintenance Credit Allotment Error)"],
+        "Found Contract Clause Reference": [
+            "Section 4.2 (Net-30 Late Fee Calculation Overlap)", 
+            "Section 9.1 (Custom Volume Discount Tier Discrepancy)", 
+            "Section 2.3 (Server Maintenance Credit Allotment Error)"
+        ],
         "AI Verified Liability": ["Client Liable (100%)", "Audit Required (Mixed)", "Vendor Credit Needed"]
     })
     st.table(ent_data)
     
     st.write("**Human-In-The-Loop Draft Workspace**")
-    email_draft = st.text_area("AI Generated Contract Reconciliation Draft:", 
-                               value="Dear Acme Team,\n\nBased on our active master service agreement signed on January 4th, the current usage tier overages explicitly fall within the scope outlined in Section 4.2...", height=120)
+    email_draft = st.text_area(
+        "AI Generated Contract Reconciliation Draft:", 
+        value="Dear Acme Team,\n\nBased on our active master service agreement signed on January 4th, the current usage tier overages explicitly fall within the scope outlined in Section 4.2...", 
+        height=120,
+        key="txt_email_draft"
+    )
     
     c1, c2 = st.columns(2)
     with c1:
-        st.button("✅ Approve Draft & Issue Demand Notice", type="primary", use_container_width=True)
+        st.button("✅ Approve Draft & Issue Demand Notice", type="primary", use_container_width=True, key="btn_app_draft")
     with c2:
-        st.button("❌ Reject / Regenerate Document Using Contract Data", use_container_width=True)
+        st.button("❌ Reject / Regenerate Document Using Contract Data", use_container_width=True, key="btn_rej_draft")
 
 # ----------------------------------------------------
 # TAB 4: HEALTHCARE RCM WORKSPACE
@@ -134,12 +147,12 @@ with tab_healthcare:
         st.error("🚨 Found High-Risk Denial Anomaly: **Claim #CLM-88412**")
         st.write("- **Patient:** Jane Doe")
         st.write("- **Invoiced Code:** ICD-10-CM Z00.00 (General Medical Examination)")
-        st.write("- **Clearinghouse Rule Trigger:** Missing localized documentation validating prerequisite primary diagnosis verification.")
+        st.write("- **Clearinghouse Rule Trigger:** Missing localized documentation validating prerequisite diagnosis verification.")
     
     with hc_col2:
         st.write("**AI-Assisted Appeals Builder**")
-        st.selectbox("Select Action Pathway", ["Generate Letter of Medical Necessity", "Re-Code via ICD-11 Diagnostic Database", "Route to Hospital Billing Supervisor"])
-        st.button("🤖 Autogenerate Appeal Payload Bundle", use_container_width=True)
+        st.selectbox("Select Action Pathway", ["Generate Letter of Medical Necessity", "Re-Code via ICD-11 Diagnostic Database", "Route to Hospital Billing Supervisor"], key="sb_hc_path")
+        st.button("🤖 Autogenerate Appeal Payload Bundle", use_container_width=True, key="btn_hc_bundle")
 
 # ----------------------------------------------------
 # TAB 5: LOGISTICS DISPUTE DESK
@@ -149,11 +162,10 @@ with tab_logistics:
     st.markdown("Automates evidence collection and bulk chargeback submission workflows across marketplace delivery networks.")
     
     st.write("**Autonomous Batch Operations Monitor**")
-    st.progress(0.74, text="74% of today's disputed cargo discrepancies handled autonomously by system agents")
+    st.progress(0.74, text="74% of today's disputed cargo discrepancies handled autonomously")
     
     col_chart, col_stats = st.columns([2, 1])
     with col_chart:
-        # Simple sample chart tracking daily performance
         chart_data = pd.DataFrame(
             np.abs(np.random.randn(20, 2) * [100, 50]),
             columns=['Disputed Volume ($)', 'Recovered Capital ($)']
@@ -163,4 +175,4 @@ with tab_logistics:
     with col_stats:
         st.metric("Disputes Processed (Today)", "1,402 Orders")
         st.metric("Evidence Success Rate", "89.2% Capture")
-        st.button("📂 Download Batch CSV Logs for Auditing", use_container_width=True)
+        st.button("📂 Download Batch CSV Logs for Auditing", use_container_width=True, key="btn_download_log")
