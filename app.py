@@ -61,7 +61,7 @@ with tab_saas:
         "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
         "Invoice Amount": ["$240.00", "$85.00", "$1,200.00", "$450.00"],
         "Gateway Error Code": ["Insufficient Funds", "Card Expired", "Bank Decline", "Insufficient Funds"],
-        "AI Collectability Score":,
+        "AI Collectability Score":85,
         "Scheduled Action": ["Retry scheduled Friday 9:02 AM (Payday)", "Send Card Expiry Update Link", "Route to Manual Account Exec Review", "Retry scheduled tomorrow 6:00 AM"]
     })
     
