@@ -56,12 +56,12 @@ with tab_saas:
     st.subheader("SaaS Recurring Billing & Intelligent Retry Matrix")
     st.markdown("Optimizes transaction clock timings, pay-day match variables, and smart gateway triggers.")
     
-    # Live Feed Mock Data
+    # Cleaned and varied predictive scores
     saas_data = pd.DataFrame({
         "Customer ID": ["USR-9012", "USR-4412", "USR-3108", "USR-8821"],
         "Invoice Amount": ["$240.00", "$85.00", "$1,200.00", "$450.00"],
         "Gateway Error Code": ["Insufficient Funds", "Card Expired", "Bank Decline", "Insufficient Funds"],
-        "AI Collectability Score":85,
+        "AI Score (%)":,
         "Scheduled Action": ["Retry scheduled Friday 9:02 AM (Payday)", "Send Card Expiry Update Link", "Route to Manual Account Exec Review", "Retry scheduled tomorrow 6:00 AM"]
     })
     
@@ -153,7 +153,7 @@ with tab_logistics:
     with col_chart:
         # Simple sample chart tracking daily performance
         chart_data = pd.DataFrame(
-            np.random.randn(20, 2) * [100, 50] ,
+            np.abs(np.random.randn(20, 2) * [100, 50]),
             columns=['Disputed Volume ($)', 'Recovered Capital ($)']
         )
         st.line_chart(chart_data)
